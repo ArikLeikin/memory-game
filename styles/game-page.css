@@ -1,0 +1,51 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.video-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    opacity: 0.85;
+}
+
+video{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.fcard{
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-end;
+    align-items: center;
+    width: 25% !important;
+    padding: 0;
+}
+
+.mt-5{
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+img {
+    margin: 0;
+    padding: 0;
+    border: 0px;
+}
+  
