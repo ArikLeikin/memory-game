@@ -1,4 +1,3 @@
-
 var card1 = null
 var card2 = null
 var couplesFound = 0
@@ -31,10 +30,8 @@ function startGame(){
     initVars()
     $(".row").empty();
     initView()
-    // hideAllImages()
-    var timerDuration = 1000; // Set the duration in milliseconds
-    setTimeout(hideAllImages, timerDuration);
-    setTimeout(stopWatchInit, timerDuration);
+    hideAllImages()
+    stopWatchInit()
 }
 
 function initButtons(){
@@ -52,13 +49,11 @@ function profileSetup(){
 function stopWatchInit(){    
     let hours = 0;
     let minutes = 0;
-    let seconds = 0;
-    
+    let seconds = 0;    
     // Function to start the stopwatch
     function startStopwatch() {        
         timer = setInterval(updateStopwatch, 1000);            
     }
-
     // Function to update the stopwatch display
     function updateStopwatch() {
         seconds++;
@@ -75,12 +70,10 @@ function stopWatchInit(){
         $("#minutes").text(padTime(minutes));
         $("#seconds").text(padTime(seconds));
     }
-
     // Function to pad the time with leading zeros
     function padTime(time) {
         return time.toString().padStart(2, "0");
     }    
-
     // Start the stopwatch when the page loads
     console.log(stopwatchOff)
     if(!stopwatchOff){
@@ -96,7 +89,7 @@ function stopClock(){
 function initView(){    
     cardsAmount = parseInt(page.split('?')[1].split('=')[1])
     var cards = []
-    
+
     for(var i=1; i<=cardsAmount; i++){
         imgIdCounter += 10
         var img = $("<img>", {
@@ -105,20 +98,22 @@ function initView(){
             "src": "https://picsum.photos/id/"+ imgIdCounter +"/100/100",
             "display": 'block'          
         });
-
         var card = $("<div>", {
             "class": "col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12",
-            "id": "game-card"
+            "id": "card"
         });
-        card.append(img)
-        card.attr('value',i)
-        card.on("click", handleClick)
-
+        var card2 = $("<div>",{
+            "class": "col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12",
+            "id": "card2"
+        })        
+        card2.append(img)
+        card.append(card2)
+        card2.attr('value',i)
+        card2.on("click", handleClick)
         cards.push(card)        
         cards.push(card.clone(true))        
     }
     shuffleArray(cards)
-
     for(var i=0; i<cards.length; i++){
         $(".row").append(cards[i])
     }
@@ -138,14 +133,11 @@ function showImages(card) {
 }
 
 function makeUnclickable(){
-    var cards = $(".row").find(".col-xxl-1.col-xl-2.col-lg-3.col-md-4.col-sm-6.col-xs-12");
-    cards.css("pointer-events", "none")
-    console.log(cards)
+    $("[id^='card']").css("pointer-events", "none");
 }
-
+   
 function makeClickable(){
-    var cards = $(".row").find(".col-xxl-1.col-xl-2.col-lg-3.col-md-4.col-sm-6.col-xs-12");
-    cards.css("pointer-events", "auto")
+    $("[id^='card']").css("pointer-events", "auto");
 }
 
 function handleClick(){    
@@ -178,7 +170,6 @@ function handleClick(){
             stopClock()        
             alert("You win")
         },100)
-        
     }
 
 }
